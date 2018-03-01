@@ -275,6 +275,24 @@ coinoneAPI.prototype.myCompleteOrders = function (currency) {
   return this.callPersonalAPI(url, payload)
 }
 
+// Order_V2 - My Order Information
+coinoneAPI.prototype.myOrderInformation = function (currency, order_id) {
+  // Allowed values: btc, bch, btg, eth, etc, xrp, qtum, iota, ltc
+  if (!isCurrency(currency)) {  
+    console.error('myCompleteOrders: currency is NOT right value: btc, bch, btg, eth, etc, xrp, qtum, iota, ltc', currency)
+    return false
+  }
+ 
+  var url = 'https://api.coinone.co.kr/v2/order/order_info/';
+    var payload = {
+    'access_token': this.get_access_token(),
+    'currency': currency,
+    'nonce': Date.now(),
+    'order_id': order_id,
+  }
+  return this.callPersonalAPI(url, payload)
+}
+
 // Order_V2 - My Limit Orders
 coinoneAPI.prototype.myLimitOrders = function (currency) {
   // Allowed values: btc, bch, btg, eth, etc, xrp, qtum, iota, ltc
